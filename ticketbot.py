@@ -78,9 +78,28 @@ def ticket_search(location, start_date, end_date, artist):
     ticket_page.click()
 
 # Ticketweb purchase tickets
-def ticketweb_purchase():
-    print("hello")
+def ticketweb_input_info(guests):
+    select = False
+    ticket_dropdown = driver.find_element_by_class_name('number theme-title theme-mod ng-binding')
+    ticket_dropdown.click()
+
+    number_selection = driver.find_elements_by_class_name('number theme-title ng-binding')
+    while select == False:
+        i = 0
+        if int(number_selection[i].innerHTML) == guests:
+            select = True
+            number_selection[i].click()
+        i += 1
     
+    try:
+        recaptcha = driver.find_element_by_xpath('//*[@id="recaptcha-anchor"]')
+        recaptcha.click()
+    except Exception:
+        pass
+    
+    checkout_button = driver.find_element_by_xpath('//*[@id="edp_checkout_btn"]')
+    checkout_button.click()
+
 def main():
     # User Input Login Info
     email = input("Email:")
@@ -95,6 +114,7 @@ def main():
     
     login(email, password)
     ticket_search(location, start_date, end_date, artist)
+    ticketweb_input_info(guests)
     
 if __name__ == '__main__':
     main()
