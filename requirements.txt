@@ -1,2 +1,6 @@
-selenium==3.141.0
+SpeechRecognition==3.8.1
+pydub==0.25.1
+requests==2.25.1
 webdriver_manager==3.4.2
+selenium==3.141.0
+ffmpy==0.3.0
